@@ -6,30 +6,39 @@
 public class PlayerAnimationController : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] private Avatar idleAvatar, runAvatar, cutAvatar;
-
-    private void Awake() {
+    private void Awake()
+    {
         animator = GetComponent<Animator>();
     }
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
+        GetDistanceToWheet();
         Animate();
-       /* if (animator.GetBool("isCutting")){
-            animator.avatar = cutAvatar;
-        }
-        */
+
     }
-    private void Animate(){
-        if (CustomInputSystem.GetInput() != Vector3.zero){
+    private void Animate()
+    {
+        if (CustomInputSystem.GetInput() != Vector3.zero)
+        {
             animator.SetBool("isRunning", true);
-        
-            //animator.avatar = runAvatar;
-          
         }
-        else {
+        else
+        {
             animator.SetBool("isRunning", false);
-            if(!animator.GetBool("isCutting")){
-                //animator.avatar = idleAvatar;
-            }
         }
     }
+    private void GetDistanceToWheet (){
+        Physics.SphereCast(new Vector3 (
+            transform.position.x, 
+            transform.position.y + 0.6f, 
+            transform.position.z), 
+            1f, transform.forward, out RaycastHit hit, 0.3f);
+
+        Debug.DrawRay(transform.position, transform.forward, Color.red, 1f);
+        if ((hit.collider != null) && (hit.collider.tag == "WheetBlock")){
+            animator.SetBool("isCutting", true);
+        }
+        else {animator.SetBool("isCutting", false);}
+    }
+    
 }

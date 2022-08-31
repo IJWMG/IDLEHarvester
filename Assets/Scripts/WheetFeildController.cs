@@ -6,6 +6,8 @@ public class WheetFeildController : MonoBehaviour
     [SerializeField] private WheetFieldFragment cellPrefab;
     [SerializeField] private WheetBlocksController wheetBlockPrefab;
     [SerializeField] private int xWidth, zWidth;
+    [SerializeField] private float wheetFieldTimer;
+    [SerializeField] private WheetBrick wheetBrickPrefab;
     private WheetFieldFragment[] cells;
     private int destroyCounter;
     void Awake()
@@ -48,21 +50,26 @@ public class WheetFeildController : MonoBehaviour
     private bool IsBlockLast()
     {
         bool result = false;
-        if (destroyCounter == (cells.Length -1)){
+        if (destroyCounter == (cells.Length - 1))
+        {
             result = true;
         }
         return result;
     }
-    public void DestroyTheBlock(){
+    public void DestroyTheBlock(Vector3 position)
+    {
         Debug.Log(destroyCounter);
-        if (IsBlockLast()){
+        if (IsBlockLast())
+        {
             destroyCounter = 0;
             StartCoroutine(ReloadWheetField());
         }
-        else{destroyCounter++;}
+        else { destroyCounter++; }
+        Instantiate(wheetBrickPrefab, position, Quaternion.identity);
     }
-    private IEnumerator ReloadWheetField(){
-        yield return new WaitForSeconds (3f);
+    private IEnumerator ReloadWheetField()
+    {
+        yield return new WaitForSeconds(wheetFieldTimer);
         FilAllCells();
     }
 }

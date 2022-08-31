@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - RightHand
+  - WheetBlock
+  - Scythe
   layers:
   - Default
   - TransparentFX
