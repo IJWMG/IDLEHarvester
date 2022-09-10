@@ -2,15 +2,15 @@
 
 public class WheetBlocksController : MonoBehaviour
 {
-    private WheetFeildController controller;
-    private bool isExist = true;
+    private WheetFeildController _controller;
+    private bool _isExist = true;
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.tag == "Scythe") && isExist)
+        if ((other.tag == "Scythe") && _isExist)
         {
-            isExist = false;
-            controller = this.transform.parent.transform.parent.GetComponent<WheetFeildController>();
-            controller.DestroyTheBlock(this.transform.position);
+            _isExist = false;
+            _controller = this.transform.parent.transform.parent.GetComponent<WheetFeildController>();
+            _controller.DestroyTheBlock(this.transform.position);
             Destroy(this.gameObject, 0.25f);
             Debug.Log("trigger");
         }

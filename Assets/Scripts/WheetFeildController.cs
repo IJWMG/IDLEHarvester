@@ -4,18 +4,18 @@ using System.Collections;
 public class WheetFeildController : MonoBehaviour
 {
     [SerializeField] private WheetFieldFragment cellPrefab;
-    [SerializeField] private WheetBlocksController wheetBlockPrefab;
-    [SerializeField] private int xWidth, zWidth;
-    [SerializeField] private float wheetFieldTimer;
-    [SerializeField] private WheetBrick wheetBrickPrefab;
-    private WheetFieldFragment[] cells;
-    private int destroyCounter;
+    [SerializeField] private WheetBlocksController _wheetBlockPrefab;
+    [SerializeField] private int _xWidth, _zWidth;
+    [SerializeField] private float _wheetFieldTimer;
+    [SerializeField] private WheetBrick _wheetBrickPrefab;
+    private WheetFieldFragment[] _cells;
+    private int _destroyCounter;
     void Awake()
     {
-        cells = new WheetFieldFragment[xWidth * zWidth];
-        for (int z = 0, i = 0; z < zWidth; z++)
+        _cells = new WheetFieldFragment[_xWidth * _zWidth];
+        for (int z = 0, i = 0; z < _zWidth; z++)
         {
-            for (int x = 0; x < xWidth; x++)
+            for (int x = 0; x < _xWidth; x++)
             {
                 CreateCell(x, z, i++);
             }
@@ -30,18 +30,18 @@ public class WheetFeildController : MonoBehaviour
         position.y = 0f;
         position.z = z;
 
-        cells[i] = Instantiate<WheetFieldFragment>(cellPrefab);
-        cells[i].transform.SetParent(transform, false);
-        cells[i].transform.localPosition = position;
+        _cells[i] = Instantiate<WheetFieldFragment>(cellPrefab);
+        _cells[i].transform.SetParent(transform, false);
+        _cells[i].transform.localPosition = position;
     }
     private void FilAllCells()
     {
         // plane as a base of field prefab has scale 10 x 10 x 10, scaler need to match scales of prefabs
         float scaler = cellPrefab.transform.localScale.x * 100f;
-        foreach (var cell in cells)
+        foreach (var cell in _cells)
         {
-            Vector3 position = new Vector3(0, wheetBlockPrefab.transform.localScale.y * scaler / 2f, 0);
-            var wheetBlock = Instantiate<WheetBlocksController>(wheetBlockPrefab);
+            Vector3 position = new Vector3(0, _wheetBlockPrefab.transform.localScale.y * scaler / 2f, 0);
+            var wheetBlock = Instantiate<WheetBlocksController>(_wheetBlockPrefab);
             wheetBlock.transform.SetParent(cell.transform, false);
             wheetBlock.transform.localPosition = position;
             wheetBlock.transform.localScale *= scaler;
@@ -50,7 +50,7 @@ public class WheetFeildController : MonoBehaviour
     private bool IsBlockLast()
     {
         bool result = false;
-        if (destroyCounter == (cells.Length - 1))
+        if (_destroyCounter == (_cells.Length - 1))
         {
             result = true;
         }
@@ -58,18 +58,18 @@ public class WheetFeildController : MonoBehaviour
     }
     public void DestroyTheBlock(Vector3 position)
     {
-        Debug.Log(destroyCounter);
+        Debug.Log(_destroyCounter);
         if (IsBlockLast())
         {
-            destroyCounter = 0;
+            _destroyCounter = 0;
             StartCoroutine(ReloadWheetField());
         }
-        else { destroyCounter++; }
-        Instantiate(wheetBrickPrefab, position, Quaternion.identity);
+        else { _destroyCounter++; }
+        Instantiate(_wheetBrickPrefab, position, Quaternion.identity);
     }
     private IEnumerator ReloadWheetField()
     {
-        yield return new WaitForSeconds(wheetFieldTimer);
+        yield return new WaitForSeconds(_wheetFieldTimer);
         FilAllCells();
     }
 }

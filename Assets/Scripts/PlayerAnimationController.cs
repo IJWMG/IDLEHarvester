@@ -5,10 +5,11 @@
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    private Animator animator;
+    [SerializeField] private Animator _inventoryAnimator;
+    private Animator _animator;
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
     private void FixedUpdate()
     {
@@ -20,11 +21,14 @@ public class PlayerAnimationController : MonoBehaviour
     {
         if (CustomInputSystem.GetInput() != Vector3.zero)
         {
-            animator.SetBool("isRunning", true);
+            _animator.SetBool("isRunning", true);
+            _inventoryAnimator.SetBool("isRunning", true);
         }
         else
         {
-            animator.SetBool("isRunning", false);
+            _animator.SetBool("isRunning", false);
+            _inventoryAnimator.SetBool("isRunning", false);
+
         }
     }
     private void GetDistanceToWheet (){
@@ -36,9 +40,9 @@ public class PlayerAnimationController : MonoBehaviour
 
         Debug.DrawRay(transform.position, transform.forward, Color.red, 1f);
         if ((hit.collider != null) && (hit.collider.tag == "WheetBlock")){
-            animator.SetBool("isCutting", true);
+            _animator.SetBool("isCutting", true);
         }
-        else {animator.SetBool("isCutting", false);}
+        else {_animator.SetBool("isCutting", false);}
     }
     
 }

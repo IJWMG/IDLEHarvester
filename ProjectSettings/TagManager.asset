@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - RightHand
   - WheetBlock
   - Scythe
+  - WheetBrick
+  - Collectable
   layers:
   - Default
   - TransparentFX
