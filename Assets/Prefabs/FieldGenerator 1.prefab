@@ -47,8 +47,8 @@ MonoBehaviour:
     type: 3}
   _wheetBlockPrefab: {fileID: 5217463460489031038, guid: a7ec9ccf84f4c5b4ea142b47af4b0d31,
     type: 3}
-  _xWidth: 10
-  _zWidth: 10
-  _wheetFieldTimer: 5
+  _xWidth: 4
+  _zWidth: 5
+  _wheetFieldTimer: 10
   _wheetBrickPrefab: {fileID: 3942163062231521278, guid: f3b3508783c9a694d9fa13c87850b681,
     type: 3}

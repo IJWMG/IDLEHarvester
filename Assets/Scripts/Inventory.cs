@@ -1,14 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class Inventory : MonoBehaviour
+interface IResourceSender{
+    public event UnityAction<int> OnResourceChage;
+}
+
+public class Inventory : MonoBehaviour, IResourceSender
 {
     [SerializeField] private Transform _layer0, _layer1, _layer2, _layer3, _layer4;
     [SerializeField] private WheetBrick _inventoryBrickPrefab;
     private Transform _parentBone;
-    public event UnityAction OnInventoryChage;
+    public event UnityAction<int> OnResourceChage;
     private int _wheetBrickCounter = 0, _inventoryLimit;
     private bool _isInventoryFull;
     public bool IsInventoryFull { get => _isInventoryFull; private set => _isInventoryFull = value; }
@@ -37,6 +39,8 @@ public class Inventory : MonoBehaviour
             InventoryAdd(_inventoryBrickPrefab);
             ICollectible inventoryItem = other.gameObject.GetComponent<ICollectible>();
             inventoryItem.CollectToInventory();
+            if (_wheetBrickCounter >= _inventoryLimit)
+            IsInventoryFull = true;
         }
     }
     private void InventoryAdd(ICollectible inventoryItem)
@@ -50,16 +54,14 @@ public class Inventory : MonoBehaviour
 
         SetParentBone();
 
-        OnInventoryChage?.Invoke();
         _wheetBrickCounter++;
-        if (_wheetBrickCounter >= _inventoryLimit)
-            IsInventoryFull = true;
+        OnResourceChage?.Invoke(_wheetBrickCounter);
     }
     private void InventoryRemoveAll()
     {
 
-        OnInventoryChage?.Invoke();
         _wheetBrickCounter = 0;
+        OnResourceChage?.Invoke(_wheetBrickCounter);
         _parentBone = _layer0;
         IsInventoryFull = false;
     }
@@ -96,16 +98,16 @@ public class Inventory : MonoBehaviour
     }
     private void SetParentBone(){
         switch (_wheetBrickCounter) {
-            case 16:
+            case 15:
                 _parentBone = _layer1;
                 break;
-            case 28:
+            case 27:
                 _parentBone = _layer2;
                 break;
-            case 36:
+            case 35:
                 _parentBone = _layer3;
                 break;
-            case 40:
+            case 39:
                 _parentBone = _layer4;
                 break;
         }

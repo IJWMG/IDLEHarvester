@@ -2,10 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+interface ICollectible 
+{
+    Inventory Inventory { get; }
+    int Cost {get; }
+    void CollectToInventory();
+    void StopFollowing();
+    int Sell();
+    GameObject GetGameObject();
+}
 
 public class WheetBrick : MonoBehaviour, ICollectible
 {
     public Inventory Inventory { get; set; }
+    public int Cost {get; } = 15;
     private void Awake() {
         Inventory = FindObjectOfType<Inventory>();
     }
@@ -26,12 +36,8 @@ public class WheetBrick : MonoBehaviour, ICollectible
 
         }
     }
-
-}
-interface ICollectible 
-{
-    Inventory Inventory { get; }
-    void CollectToInventory();
-    void StopFollowing();
-    GameObject GetGameObject();
+    public int Sell(){
+        Destroy(this.gameObject);
+        return Cost;
+    }
 }
