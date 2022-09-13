@@ -5,18 +5,19 @@ public class Finances : MonoBehaviour, IResourceSender
 {
     public int InventoryStatus{ get; private set;}
     public int MoneyCount {get; private set;}
-    [SerializeField] private IResourceSender inventorySender;
+    private IResourceSender _inventorySender;
     public event UnityAction<int> OnResourceChage;
 
     private void Awake() {
-        inventorySender.OnResourceChage += OnResourceReceive;
+        _inventorySender = FindObjectOfType<Inventory>();
+        _inventorySender.OnResourceChage += OnResourceReceive;
     }
 
     public void OnResourceReceive (int resource){
         InventoryStatus = resource;
     }
     private void OnCollisionEnter(Collision other) {
-        ICollectible objectToSell = other.gameObject.GetComponent<ICollectible>();
+        ISellable objectToSell = other.gameObject.GetComponent<ISellable>();
         if (objectToSell != null){
             MoneyCount += objectToSell.Sell();
             OnResourceChage?.Invoke(MoneyCount);

@@ -1,49 +1,47 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 interface IResourceSender{
-    public event UnityAction<int> OnResourceChage;
+    event UnityAction<int> OnResourceChage;
 }
 
 public class Inventory : MonoBehaviour, IResourceSender
 {
     [SerializeField] private Transform _layer0, _layer1, _layer2, _layer3, _layer4;
-    [SerializeField] private WheetBrick _inventoryBrickPrefab;
+    [SerializeField] private InventoryBrick _inventoryBrickPrefab;
     private Transform _parentBone;
     public event UnityAction<int> OnResourceChage;
     private int _wheetBrickCounter = 0, _inventoryLimit;
     private bool _isInventoryFull;
     public bool IsInventoryFull { get => _isInventoryFull; private set => _isInventoryFull = value; }
-    private WheetBrick[] _bricks;
+    private ISellable[] _bricks;
     private Vector3[] _inventoryGreed;
     private void Start()
     {
         _inventoryLimit = PlayerPrefs.GetInt("InventoryLimit", 40);
-        _bricks = new WheetBrick[_inventoryLimit];
+        _bricks = new InventoryBrick[_inventoryLimit];
         _parentBone = _layer0;
         _inventoryGreed = GenerateInventoryGrid();
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Hangar")
+        if (other.tag == "Hangar" && _bricks[0] != null)
         {
-            InventoryRemoveAll();
+            InventoryRemoveAll(other.transform.position);
         }
     }
     private void OnCollisionEnter(Collision other)
     {
         if (other.collider.tag == "WheetBrick" && !IsInventoryFull)
         {
-            Debug.Log("colision!");
-            InventoryAdd(_inventoryBrickPrefab);
             ICollectible inventoryItem = other.gameObject.GetComponent<ICollectible>();
             inventoryItem.CollectToInventory();
-            if (_wheetBrickCounter >= _inventoryLimit)
-            IsInventoryFull = true;
+            InventoryAdd(_inventoryBrickPrefab);
         }
     }
-    private void InventoryAdd(ICollectible inventoryItem)
+    private void InventoryAdd(ISellable inventoryItem)
     {
         GameObject instanted = Instantiate(
             inventoryItem.GetGameObject(), 
@@ -53,13 +51,22 @@ public class Inventory : MonoBehaviour, IResourceSender
         instanted.transform.SetParent(_parentBone, false);
 
         SetParentBone();
-
+        _bricks[_wheetBrickCounter] = instanted.gameObject.GetComponent<ISellable>();
         _wheetBrickCounter++;
         OnResourceChage?.Invoke(_wheetBrickCounter);
+        if (_wheetBrickCounter >= _inventoryLimit)
+            IsInventoryFull = true;
     }
-    private void InventoryRemoveAll()
+    private void InventoryRemoveAll(Vector3 sellerPosition)
     {
-
+        
+        var sequance = DOTween.Sequence();
+        for (int i = _wheetBrickCounter -1; i >= 0; i--)
+        {
+            sequance.Append(_bricks[i].FlyToSeller(sellerPosition));
+            _bricks[i] = null;
+        }
+       
         _wheetBrickCounter = 0;
         OnResourceChage?.Invoke(_wheetBrickCounter);
         _parentBone = _layer0;

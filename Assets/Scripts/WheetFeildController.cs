@@ -58,7 +58,6 @@ public class WheetFeildController : MonoBehaviour
     }
     public void DestroyTheBlock(Vector3 position)
     {
-        Debug.Log(_destroyCounter);
         if (IsBlockLast())
         {
             _destroyCounter = 0;

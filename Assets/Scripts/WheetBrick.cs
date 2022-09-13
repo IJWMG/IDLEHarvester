@@ -1,43 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using DG.Tweening;
 
-interface ICollectible 
+interface ICollectible  
 {
     Inventory Inventory { get; }
-    int Cost {get; }
+    void Follow(Vector3 position);
     void CollectToInventory();
     void StopFollowing();
-    int Sell();
-    GameObject GetGameObject();
 }
-
-public class WheetBrick : MonoBehaviour, ICollectible
+public class WheetBrick : MonoBehaviour, ICollectible 
 {
     public Inventory Inventory { get; set; }
-    public int Cost {get; } = 15;
     private void Awake() {
         Inventory = FindObjectOfType<Inventory>();
     }
     public void CollectToInventory(){
         if (!Inventory.IsInventoryFull){
+            transform.DOKill();
             Destroy(this.gameObject);
         }
         else StopFollowing();
     }
     public void StopFollowing(){
-
+        transform.DOKill();
     }
-    public GameObject GetGameObject() => this.gameObject;
+    public void Follow(Vector3 position){
+        transform.DOMove(position, 0.5f, false);
+    }
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && !Inventory.IsInventoryFull){
-            //возможно юнирх с его апдейтом
-
+            Follow(other.transform.position);
         }
-    }
-    public int Sell(){
-        Destroy(this.gameObject);
-        return Cost;
     }
 }

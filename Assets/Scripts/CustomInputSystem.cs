@@ -1,24 +1,14 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof (FixedJoystick))]
 public class CustomInputSystem : MonoBehaviour
 {
+    [SerializeField] private static FixedJoystick _joystick;
+    private void Awake() {
+        _joystick = GetComponent<FixedJoystick>();
+    }
     public static Vector3 GetInput()
     {
-        Vector3 movement = new Vector3();
-#if UNITY_EDITOR
-        if (Input.GetAxis("Horizontal") != 0){
-            movement.x = (Input.GetAxis("Horizontal") >0? 1 : -1) * PlayerController.RunSpeed ;
-        }
-        if (Input.GetAxis("Vertical") != 0){
-            movement.z = (Input.GetAxis("Vertical") >0? 1 : -1) * PlayerController.RunSpeed;
-        }
-
-        movement = Vector3.ClampMagnitude(movement, PlayerController.RunSpeed);
-        return movement;
-#endif
-
-#if UNITY_ANDROID
-        return movement;
-#endif
+        return new Vector3 (_joystick.Horizontal * PlayerController.RunSpeed, 0, _joystick.Vertical * PlayerController.RunSpeed);
     }
 }

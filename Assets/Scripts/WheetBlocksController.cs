@@ -12,7 +12,6 @@ public class WheetBlocksController : MonoBehaviour
             _controller = this.transform.parent.transform.parent.GetComponent<WheetFeildController>();
             _controller.DestroyTheBlock(this.transform.position);
             Destroy(this.gameObject, 0.25f);
-            Debug.Log("trigger");
         }
     }
 }

@@ -2,12 +2,17 @@
 
 public class PlayerController : MonoBehaviour
 {
-    private static float _runSpeed = 0.1f;
+    private static float _runSpeed = 5.5f;
     public static float RunSpeed { get { return _runSpeed; } private set { _runSpeed = RunSpeed; } }
-    [SerializeField] private ScytheScript scythePrefab;
+    [SerializeField] Rigidbody _rigidbody;
     private void FixedUpdate()
     {
-        transform.Translate(CustomInputSystem.GetInput());
+        _rigidbody.velocity = CustomInputSystem.GetInput();
+        
+        if (CustomInputSystem.GetInput() != Vector3.zero){
+
+            transform.localRotation = Quaternion.LookRotation(_rigidbody.velocity);
+        }
     }
    
     
