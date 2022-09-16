@@ -223,6 +223,9 @@
     <Reference Include="UnityEditor">
         <HintPath>D:/Program Files (x86)/Unity Hub/Editor/2019.4.13f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+        <HintPath>D:/govno_coderskoe/Unity/New Unity Project/Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.VR">
         <HintPath>D:/Program Files (x86)/Unity Hub/Editor/2019.4.13f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
     </Reference>
@@ -238,11 +241,11 @@
     <Reference Include="UnityEditor.Android.Extensions">
         <HintPath>D:/Program Files (x86)/Unity Hub/Editor/2019.4.13f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="DOTween">
-        <HintPath>D:/govno_coderskoe/Unity/New Unity Project/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
-    </Reference>
     <Reference Include="DOTweenEditor">
-        <HintPath>D:/govno_coderskoe/Unity/New Unity Project/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+        <HintPath>D:/govno_coderskoe/Unity/New Unity Project/Assets/Scripts/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+        <HintPath>D:/govno_coderskoe/Unity/New Unity Project/Assets/Scripts/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
         <HintPath>D:/govno_coderskoe/Unity/New Unity Project/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -642,14 +645,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{c51a3979-5287-ccb4-f33f-bb9eb1094377}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{b28fb5b2-6244-0c6b-a872-40dd957e5fe0}</Project>
       <Name>Assembly-CSharp</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{74c2cf4e-e2ca-dc2b-e967-c15d74fcc20f}</Project>
+      <Name>UniRx</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
