@@ -4,7 +4,7 @@ using DG.Tweening;
 interface ICollectible  
 {
     Inventory Inventory { get; }
-    void Follow(Vector3 position);
+    void Follow(GameObject player);
     void CollectToInventory();
     void StopFollowing();
 }
@@ -24,13 +24,20 @@ public class WheetBrick : MonoBehaviour, ICollectible
     public void StopFollowing(){
         transform.DOKill();
     }
-    public void Follow(Vector3 position){
-        transform.DOMove(position, 0.5f, false);
+    public void Follow(GameObject player){
+        transform.DOMove(player.transform.position, 1f, false)
+            .OnComplete(() => Follow(player));
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && !Inventory.IsInventoryFull){
-            Follow(other.transform.position);
+            GameObject player = other.gameObject;
+            Follow(player);
+        }
+    }
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "Player" && Inventory.IsInventoryFull){
+            StopFollowing();
         }
     }
 }

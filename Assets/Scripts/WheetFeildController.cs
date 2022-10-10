@@ -6,8 +6,9 @@ public class WheetFeildController : MonoBehaviour
     [SerializeField] private WheetFieldFragment cellPrefab;
     [SerializeField] private WheetBlocksController _wheetBlockPrefab;
     [SerializeField] private int _xWidth, _zWidth;
-    [SerializeField] private float _wheetFieldTimer;
+    [SerializeField] private int _wheetFieldTimer;
     [SerializeField] private WheetBrick _wheetBrickPrefab;
+    [SerializeField] private UITimer _timer;
     private WheetFieldFragment[] _cells;
     private int _destroyCounter;
     void Awake()
@@ -68,6 +69,7 @@ public class WheetFeildController : MonoBehaviour
     }
     private IEnumerator ReloadWheetField()
     {
+        _timer.StartTimerFromSeconds(_wheetFieldTimer);
         yield return new WaitForSeconds(_wheetFieldTimer);
         FilAllCells();
     }

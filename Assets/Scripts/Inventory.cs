@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 
@@ -22,7 +21,7 @@ public class Inventory : MonoBehaviour, IResourceSender, IResourceReciever
     private IResourceSender _sender;
     private void Start()
     {
-        _inventoryLimit = PlayerPrefs.GetInt("InventoryLimit", 40);
+        _inventoryLimit = PlayerPrefs.GetInt("InventoryLimit", 20);
         _bricks = new InventoryBrick[_inventoryLimit];
         _parentBone = _layer0;
         _inventoryGreed = GenerateInventoryGrid();

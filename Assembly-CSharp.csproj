@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\ResourceID.cs" />
      <Compile Include="Assets\Scripts\ScreenUI.cs" />
      <Compile Include="Assets\Scripts\ScytheScript.cs" />
+     <Compile Include="Assets\Scripts\UITimer.cs" />
      <Compile Include="Assets\Scripts\WheetBlocksController.cs" />
      <Compile Include="Assets\Scripts\WheetBrick.cs" />
      <Compile Include="Assets\Scripts\WheetFeildController.cs" />
