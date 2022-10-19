@@ -10,21 +10,60 @@ public class Finances : MonoBehaviour, IResourceSender, IResourceReciever
 {
     private Dictionary<ResourceID, int> _resourcesByID = new Dictionary<ResourceID, int>();
     public int InventoryStatus { get; private set; }
-    private IResourceSender _inventorySender;
+    private IResourceSender _inventorySender, _shopSender;
     public event UnityAction<ResourceID, int> OnResourceChage;
 
     private void Awake()
     {
         _inventorySender = FindObjectOfType<Inventory>();
         _inventorySender.OnResourceChage += OnResourceReceive;
-        _resourcesByID.Add(ResourceID.Money, 0);
+        _shopSender = FindObjectOfType<Shop>();
+        _shopSender.OnResourceChage += OnResourceReceive;
+        _resourcesByID = DataSaveLoader.LoadAllData();
+
     }
+    private void Start()
+    {
+        foreach (var resource in _resourcesByID)
+        {
+            OnResourceChage?.Invoke(resource.Key, resource.Value);
+
+        }
+
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            _resourcesByID = DataSaveLoader.LoadAllData();
+            foreach (var resource in _resourcesByID)
+            {
+                OnResourceChage?.Invoke(resource.Key, resource.Value);
+            }
+            print(_resourcesByID);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            DataSaveLoader.SaveAllData(_resourcesByID);
+        }
+        if (Input.GetKeyDown(KeyCode.M)){
+            _resourcesByID[ResourceID.Money] = 1000000000;
+            OnResourceChage?.Invoke(ResourceID.Money, _resourcesByID[ResourceID.Money]);
+            print("cheats on");
+        }
+    }
+
 
     public void OnResourceReceive(ResourceID iD, int resource)
     {
         if (_resourcesByID.ContainsKey(iD))
+        {
             _resourcesByID[iD] = resource;
-        else _resourcesByID.Add(iD, resource);
+        }
+        else { _resourcesByID.Add(iD, resource); }
+        OnResourceChage?.Invoke(iD, resource);
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -45,5 +84,8 @@ public class Finances : MonoBehaviour, IResourceSender, IResourceReciever
         }
         else return false;
     }
-
+    private void OnApplicationQuit()
+    {
+        //DataSaveLoader.SaveAllData(_resourcesByID);
+    }
 }

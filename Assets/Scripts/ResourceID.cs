@@ -3,7 +3,9 @@ public enum ResourceID
 {
     InventorySpace,
     InventoryLimit,
-    Money
-
-
+    Money,
+    ActiveFeilds,
+    FeildUpdatePrice,
+    InventoryUpgradePrice,
+    SpeedBoostPrice
 }

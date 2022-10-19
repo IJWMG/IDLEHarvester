@@ -44,11 +44,18 @@
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
      <Compile Include="Assets\Scripts\CustomInputSystem.cs" />
+     <Compile Include="Assets\Scripts\DataSaveLoader.cs" />
+     <Compile Include="Assets\Scripts\FeildScripts\FeildStatusController.cs" />
+     <Compile Include="Assets\Scripts\FeildScripts\WheetBlocksController.cs" />
+     <Compile Include="Assets\Scripts\FeildScripts\WheetBrick.cs" />
+     <Compile Include="Assets\Scripts\FeildScripts\WheetFeildController.cs" />
+     <Compile Include="Assets\Scripts\FeildScripts\WheetFieldFragment.cs" />
      <Compile Include="Assets\Scripts\Finances.cs" />
-     <Compile Include="Assets\Scripts\Inventory.cs" />
-     <Compile Include="Assets\Scripts\InventoryBrick.cs" />
-     <Compile Include="Assets\Scripts\PlayerAnimationController.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PlayerScripts\Inventory.cs" />
+     <Compile Include="Assets\Scripts\PlayerScripts\InventoryBrick.cs" />
+     <Compile Include="Assets\Scripts\PlayerScripts\PlayerAnimationController.cs" />
+     <Compile Include="Assets\Scripts\PlayerScripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PlayerScripts\ScytheScript.cs" />
      <Compile Include="Assets\Scripts\Plugins\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
      <Compile Include="Assets\Scripts\Plugins\Demigiant\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
      <Compile Include="Assets\Scripts\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
@@ -58,13 +65,13 @@
      <Compile Include="Assets\Scripts\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
      <Compile Include="Assets\Scripts\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
      <Compile Include="Assets\Scripts\ResourceID.cs" />
-     <Compile Include="Assets\Scripts\ScreenUI.cs" />
-     <Compile Include="Assets\Scripts\ScytheScript.cs" />
-     <Compile Include="Assets\Scripts\UITimer.cs" />
-     <Compile Include="Assets\Scripts\WheetBlocksController.cs" />
-     <Compile Include="Assets\Scripts\WheetBrick.cs" />
-     <Compile Include="Assets\Scripts\WheetFeildController.cs" />
-     <Compile Include="Assets\Scripts\WheetFieldFragment.cs" />
+     <Compile Include="Assets\Scripts\Shop.cs" />
+     <Compile Include="Assets\Scripts\ShopTrigger.cs" />
+     <Compile Include="Assets\Scripts\UISystem\InventoryUI.cs" />
+     <Compile Include="Assets\Scripts\UISystem\ScreenUI.cs" />
+     <Compile Include="Assets\Scripts\UISystem\ShopUI.cs" />
+     <Compile Include="Assets\Scripts\UISystem\UITimer.cs" />
+     <Compile Include="Assets\Scripts\UISystem\ViewPresenter.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -107,6 +114,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\JsonDotNet\link.xml" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -300,6 +308,9 @@
     </Reference>
     <Reference Include="UnityEditor">
         <HintPath>D:/Program Files (x86)/Unity Hub/Editor/2019.4.13f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+        <HintPath>D:/govno_coderskoe/Unity/New Unity Project/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
         <HintPath>D:/govno_coderskoe/Unity/New Unity Project/Assets/Scripts/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>

@@ -9,6 +9,9 @@ TagManager:
   - WheetBrick
   - Collectable
   - Hangar
+  - WheetFeildTrigger
+  - InventoryTrigger
+  - SpeedTrigger
   layers:
   - Default
   - TransparentFX
